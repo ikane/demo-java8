@@ -7,10 +7,12 @@ import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Random;
 import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
 import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -87,16 +89,49 @@ public class DiversTests {
      */
     @Test
     public void testStream() {
-        List<Object> persons = Arrays.asList(
-                new Person("John", "Doe", 30),
-                new Person("Jane", "Doe", 20),
-                new Person("Jim", "Smith", 15)
+        List<Individu> persons = Arrays.asList(
+                new Individu("John", "Doe", 30),
+                new Individu("Jane", "Doe", 20),
+                new Individu("Jim", "Smith", 15)
         );
 
         assertThat(persons.stream().count()).isEqualTo(3l);
 
         //IntStream
         //assertThat(IntStream.range(0,10).sum()).isEqualTo(45);
+
+        //Stream infini
+        Random random = new Random();
+        Stream.generate(()->random.nextInt())
+                .limit(10)
+                .forEach(System.out::println);
+
+        System.out.println("----------------------------------");
+
+        //forEach
+        persons.forEach(p -> System.out.println(p.getFirstName() + " " + p.getLastName()));
+
+        System.out.println("----------------------------------");
+
+        //Filter
+        persons.stream()
+                .filter(p -> p.getLastName().startsWith("D"))
+                .forEach(System.out::println);
+
+        System.out.println("----------------------------------");
+
+        //Sorted
+        persons.stream()
+                .sorted((p1,p2) -> p1.getFirstName().compareTo(p2.getFirstName()))
+                .forEach(System.out::println);
+
+        System.out.println("----------------------------------");
+        //Map - applique une Function sur les elements - operation intermedaire
+        persons.stream()
+                .map(Individu::getAge)
+                .sorted()
+                .forEach(System.out::println);
+
     }
 
 
