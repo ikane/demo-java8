@@ -1,11 +1,16 @@
 package com.example.demo;
 
 
+import com.example.demo.optionals.Person;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.function.Function;
 import java.util.function.Predicate;
+import java.util.function.Supplier;
+import java.util.stream.IntStream;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -60,6 +65,38 @@ public class DiversTests {
 
         assertThat(isEmpty.or(isTrimmed).test("")).isTrue();
         assertThat(isEmpty.or(isTrimmed).test("not empty")).isTrue();
+    }
+
+    /**
+     * Un Supplier ne prend pas d'arguments et produit un resultat
+     */
+    @Test
+    public  void testSupplier() {
+
+        Supplier<String> emptyString = () -> "";
+
+        assertThat(emptyString.get()).isEqualTo("");
+    }
+
+    /**
+     * Stream: un Streamm est une séquence d'éléments sur laquelle on peut effectuer des operations.
+     *
+     *  - source (tableau, collection, etc...)
+     *  - zero ou plusieurs operations intermediaires (transformation du stream en une autre via filter par expe)
+     *  - Operation terminale (qui produit le resultat
+     */
+    @Test
+    public void testStream() {
+        List<Object> persons = Arrays.asList(
+                new Person("John", "Doe", 30),
+                new Person("Jane", "Doe", 20),
+                new Person("Jim", "Smith", 15)
+        );
+
+        assertThat(persons.stream().count()).isEqualTo(3l);
+
+        //IntStream
+        //assertThat(IntStream.range(0,10).sum()).isEqualTo(45);
     }
 
 

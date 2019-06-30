@@ -186,13 +186,13 @@ public class OptionalsTest {
         Optional<Person> personOptional = Optional.of(person);
 
         Optional<Optional<String>> nameOptionalWrapper
-                = personOptional.map(Person::getName);
+                = personOptional.map(Person::getFirstName);
         Optional<String> nameOptional = nameOptionalWrapper.orElseThrow(IllegalArgumentException::new);
         String name1 = nameOptional.orElse("");
         assertEquals("john", name1);
 
         String name = personOptional
-                .flatMap(Person::getName)
+                .flatMap(Person::getFirstName)
                 .orElse("");
         assertEquals("john", name);
     }

@@ -3,21 +3,36 @@ package com.example.demo.optionals;
 import java.util.Optional;
 
 public class Person {
-    private String name;
+    private String firstName;
+    private String lastName;
     private int age;
     private String password;
 
-    public Person(String name, int age) {
-        this.name = name;
+    public Person(String firstName, int age) {
+        this.firstName = firstName;
         this.age = age;
     }
 
-    public Optional<String> getName() {
-        return Optional.ofNullable(name);
+    public Person(String firstName, String lastName, int age) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.age = age;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public Optional<String> getFirstName() {
+        return Optional.ofNullable(firstName);
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     public Optional<Integer> getAge() {
